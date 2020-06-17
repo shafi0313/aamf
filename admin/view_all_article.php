@@ -28,7 +28,7 @@
  
 
     <div class="card-body">
-      <table id="example1" class="table table-bordered table-hover table-responsive table-light">
+      <table id="example1" class="table table-sm table-bordered table-hover table-responsive table-light">
         <thead class="bg-info">
         <tr>
             <th>Id</th>
@@ -37,7 +37,7 @@
             <th>Text</th>
             <th>Image</th>
             <th>Date</th>
-            <th>Action</th>
+            <th class="text-center">Action</th>
         </tr>
         </thead>
         <tbody>                                                                              
@@ -54,35 +54,36 @@
             ?>
 
             <tr>
-                <td class="text-center"><?php echo $article_id; ?></td>
-                <td><?php echo $article_author; ?></td>
-                <td><?php echo $article_title; ?></td>
-                <td><?php echo $article_text. "...";?></td>
-                <td><img class="article_img" src="../image/article_image/<?php echo $article_image; ?>" height="80" weight="80" alt=""></td>
-                <td><?php echo $show['article_date']; ?></td>
-                <td style="width: 95px;">
-                    <?php echo "<a class='btn btn-warning' href='post_article.php?source=edit_article&p_id={$article_id}'><i class='fa fa-pencil-square-o'></i></a>"; ?> || 
-                    <?php echo "<a rel='$article_id' href='javascript:void(0);' class='delete_link btn btn-danger'><i class='fa fa-trash'></i></a>"; ?>
-                    
-                </td>
+              
+              <td class="text-center"><?php echo $article_id; ?></td>
+              <td><?php echo $article_author; ?></td>
+              <td><?php echo $article_title; ?></td>
+              <td><?php echo $article_text. "...";?></td>
+              <td><img class="article_img" src="../image/article_image/<?php echo $article_image; ?>" height="80" weight="80" alt=""></td>
+              <td><?php echo $show['article_date']; ?></td>
+              <td style="width: 80px; vertical-align: middle; text-align: center">
+                <?php echo "<a class='btn btn-warning btn-sm' href='post_article.php?source=edit_article&p_id={$article_id}'><i class='fa fa-pencil-square-o'></i></a>"; ?> || 
+                <?php echo "<a rel='$article_id' href='javascript:void(0);' class='delete_link btn btn-danger btn-sm'><i class='fa fa-trash'></i></a>"; ?>
+            </td>
             <?php } ?>
         </tbody>
       </table>
     </div>
     <!-- /.card-body -->
 <?php
-    if(isset($_GET['delete'])){                
-        $the_post_id = $_GET['delete']; 
-        $image = mysqli_query($cont, "SELECT * FROM post_article WHERE article_id = {$the_post_id} ");
-        while($row = mysql_fetch_array($image)){
-          $path = 'image/article_image/'. $row['article_image'];
-        }
-        if(file_exists($path)){
-          unlink($path);
-        }
-        var_dump($path);
-        //$query = "DELETE FROM post_article WHERE article_id = {$the_post_id} ";
-        //$delete_query = mysqli_query($cont, $query);       
-        // header("Location: post_article.php");
-    }   
+    if(isset($_GET['delete'])){   
+      $the_post_id = $_GET['delete']; 
+
+      $image = mysqli_query($cont, "SELECT * FROM post_article WHERE article_id = '$the_post_id'");
+      while($row = mysqli_fetch_array($image)){
+        $path = 'image/article_image/'. $row['article_image'];
+      }
+      if(file_exists($path)){
+        unlink($path);
+      }
+      
+      $query = "DELETE FROM post_article WHERE article_id = {$the_post_id} ";
+      $delete_query = mysqli_query($cont, $query);       
+      header("Location: post_article.php");
+    }
 ?> 

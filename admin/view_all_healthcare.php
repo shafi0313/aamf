@@ -29,7 +29,7 @@
  
 
 <div class="card-body">  
-  <table id="example1" class="table table-bordered table-hover">
+  <table id="example1" class="table table-sm table-bordered table-hover table-responsive table-light">
         <thead>
             <tr>
                 <th>Id</th>
@@ -62,9 +62,9 @@
                 <td><?php echo $hc_content ."..."; ?></td>
                 <td><img class="article_img" src="../image/healthcare/<?php echo $hc_image; ?>" height="80" width="80" alt=""></td>
                 <td><?php echo $hc_date; ?></td>
-                <td style="width: 95px;">
-                <?php echo "<a class='btn btn-warning' href='post_healthcare.php?source=edit_hc&p_id={$hc_id}'><i class='fa fa-pencil-square-o'></i></a>"; ?> || 
-                <?php echo "<a rel='$hc_id' href='javascript:void(0);' class='delete_link btn btn-danger'><i class='fa fa-trash'></i></a>"; ?>
+                <td style="width: 80px; vertical-align: middle; text-align: center">
+                <?php echo "<a class='btn btn-sm btn-warning' href='post_healthcare.php?source=edit_hc&p_id={$hc_id}'><i class='fa fa-pencil-square-o'></i></a>"; ?> || 
+                <?php echo "<a rel='$hc_id' href='javascript:void(0);' class='delete_link btn btn-danger btn-sm'><i class='fa fa-trash'></i></a>"; ?>
                 
                 </td>
             </tr>

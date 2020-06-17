@@ -1,14 +1,12 @@
 <?php
   include '../includes/config.php';
   include 'includes/header.php';   
-?>
-                    
+?>                    
             <?php
                 if(isset($_GET['p_id'])){
                     $the_post_id = $_GET['p_id'];
                 }
-            ?>                    
-            
+            ?>
             
             <?php
                 if(isset($_GET['source'])){

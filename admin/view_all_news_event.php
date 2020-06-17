@@ -28,7 +28,7 @@
  
 
     <div class="card-body">
-  <table id="example1" class="table table-bordered table-hover">
+  <table id="example1" class="table table-sm table-bordered table-hover table-responsive table-light">
         <thead>
             <tr>
                 <th>Id</th>
@@ -61,9 +61,9 @@
                 <td><?php echo $ne_content; ?></td>                 
                 <td><img class="ne_image" src="../image/news_event_image/<?php echo $ne_image; ?>" height="80" width="80" alt=""></td>
                 <td><?php echo $ne_date; ?></td>
-                <td style="width: 95px;">
-                <?php echo "<a class='btn btn-warning' href='post_news_event.php?source=edit_ne&p_id={$ne_id}'><i class='fa fa-pencil-square-o'></i></a>"; ?> || 
-                <?php echo "<a rel='$ne_id' href='javascript:void(0);' class='delete_link btn btn-danger'><i class='fa fa-trash'></i></a>"; ?>
+                <td style="width: 80px; vertical-align: middle; text-align: center">
+                <?php echo "<a class='btn btn-sm btn-warning' href='post_news_event.php?source=edit_ne&p_id={$ne_id}'><i class='fa fa-pencil-square-o'></i></a>"; ?> || 
+                <?php echo "<a rel='$ne_id' href='javascript:void(0);' class='delete_link btn btn-sm btn-danger'><i class='fa fa-trash'></i></a>"; ?>
                 
                 </td>
             </tr>
