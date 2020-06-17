@@ -25,7 +25,6 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
- 
 
     <div class="card-body">
       <table id="example1" class="table table-sm table-bordered table-hover table-responsive table-light">
@@ -53,8 +52,7 @@
                     $article_image  = $show['article_image'];
             ?>
 
-            <tr>
-              
+            <tr>              
               <td class="text-center"><?php echo $article_id; ?></td>
               <td><?php echo $article_author; ?></td>
               <td><?php echo $article_title; ?></td>
