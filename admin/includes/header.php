@@ -114,6 +114,9 @@ include 'auth.php';
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
       </li>
+      <li class="nav-item d-none d-sm-inline-block"style="padding-top: 7px">
+        <strong ><?php echo $_SESSION['username']; ?></strong>
+      </li>
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
@@ -182,6 +185,30 @@ include 'auth.php';
                 Dashboard                
               </p>
             </a>            
+          </li>
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-pie-chart"></i>
+              <p>
+                User
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="users.php" class="nav-link">
+                  <i class="nav-icon fa fa-circle-o text-warning"></i>
+                  <p>View Users</p>
+                </a>
+              </li>
+              <!-- <li class="nav-item">
+                <a href="post_news_event.php" class="nav-link">
+                  <i class="nav-icon fa fa-circle-o text-info"></i>
+                  <p>View News &amp; Event</p>
+                </a>
+              </li> -->
+            </ul>
           </li>
 
           <li class="nav-item has-treeview">
