@@ -75,8 +75,17 @@
     <!-- /.card-body -->
 <?php
     if(isset($_GET['delete'])){                
-        $the_post_id = $_GET['delete'];                
-        $query = "DELETE FROM post_news_event WHERE ne_id = {$the_post_id} ";
+        $the_post_id = $_GET['delete'];   
+
+        $image = mysqli_query($cont, "SELECT * FROM post_news_event WHERE ne_id = {$the_post_id}");
+        while($row = mysqli_fetch_array($image)) {
+            $path = '../image/news_event_image/'.$row['ne_image'];
+        }
+        if(file_exists($path)){
+            unlink($path);
+        }
+        
+        $query = "DELETE FROM post_news_event WHERE ne_id = {$the_post_id}";
         $delete_query = mysqli_query($cont, $query);       
         header("Location: post_news_event.php");
     }   

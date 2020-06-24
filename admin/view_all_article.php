@@ -74,7 +74,7 @@
 
       $image = mysqli_query($cont, "SELECT * FROM post_article WHERE article_id = '$the_post_id'");
       while($row = mysqli_fetch_array($image)){
-        $path = 'image/article_image/'. $row['article_image'];
+        $path = '../image/article_image/'. $row['article_image'];
       }
       if(file_exists($path)){
         unlink($path);

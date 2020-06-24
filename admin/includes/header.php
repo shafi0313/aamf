@@ -36,6 +36,8 @@ include 'auth.php';
   <link rel="stylesheet" href="dist/css/style.css">
   <!-- Sweetalert -->
   <link rel="stylesheet" href="dist/css/sweetalert2.min.css">
+  <link rel="stylesheet" href="../assets/toastr/build/toastr.min.css">
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
