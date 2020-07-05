@@ -1,4 +1,4 @@
-<?php 
+<?php
     include 'delete_model.php';
  ?>
      <!-- Content Wrapper. Contains page content -->
@@ -39,11 +39,11 @@
             <th class="text-center">Action</th>
         </tr>
         </thead>
-        <tbody>                                                                              
-           <?php                    
+        <tbody>
+           <?php
                 $query = "SELECT * FROM post_article order by article_id DESC";
                 $select_news_event = mysqli_query($cont, $query);
-            
+
                 while($show = mysqli_fetch_array($select_news_event)){
                     $article_id     = $show['article_id'];
                     $article_author = $show['article_author'];
@@ -52,7 +52,7 @@
                     $article_image  = $show['article_image'];
             ?>
 
-            <tr>              
+            <tr>
               <td class="text-center"><?php echo $article_id; ?></td>
               <td><?php echo $article_author; ?></td>
               <td><?php echo $article_title; ?></td>
@@ -60,7 +60,7 @@
               <td><img class="article_img" src="../image/article_image/<?php echo $article_image; ?>" height="80" weight="80" alt=""></td>
               <td><?php echo $show['article_date']; ?></td>
               <td style="width: 80px; vertical-align: middle; text-align: center">
-                <?php echo "<a class='btn btn-warning btn-sm' href='post_article.php?source=edit_article&p_id={$article_id}'><i class='fa fa-pencil-square-o'></i></a>"; ?> || 
+                <?php echo "<a class='btn btn-warning btn-sm' href='post_article.php?source=edit_article&p_id={$article_id}'><i class='fa fa-pencil-square-o'></i></a>"; ?> ||
                 <?php echo "<a rel='$article_id' href='javascript:void(0);' class='delete_link btn btn-danger btn-sm'><i class='fa fa-trash'></i></a>"; ?>
             </td>
             <?php } ?>
@@ -69,8 +69,8 @@
     </div>
     <!-- /.card-body -->
 <?php
-    if(isset($_GET['delete'])){   
-      $the_post_id = $_GET['delete']; 
+    if(isset($_GET['delete'])){
+      $the_post_id = $_GET['delete'];
 
       $image = mysqli_query($cont, "SELECT * FROM post_article WHERE article_id = '$the_post_id'");
       while($row = mysqli_fetch_array($image)){
@@ -79,9 +79,9 @@
       if(file_exists($path)){
         unlink($path);
       }
-      
+
       $query = "DELETE FROM post_article WHERE article_id = {$the_post_id} ";
-      $delete_query = mysqli_query($cont, $query);       
+      $delete_query = mysqli_query($cont, $query);
       header("Location: post_article.php");
     }
-?> 
+?>

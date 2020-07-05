@@ -43,7 +43,7 @@ session_start();
     
     $password = v($_POST['password']);
     $password = mysqli_real_escape_string($cont, $password);
-    $encryptedPass = md5(sha1($password));
+    $encryptedPass  = md5(sha1($password));
 
     $showRole = mysqli_query($cont, "SELECT * FROM users");
       while($show = mysqli_fetch_array($showRole)){
@@ -51,7 +51,9 @@ session_start();
     }
     $query = "SELECT * FROM `users` WHERE username='$username' and password='$encryptedPass' and role='1'";
     $result = mysqli_query($cont, $query);
+    // var_dump($query);
     $rows = mysqli_num_rows($result);
+    
     if($rows===1){
       $_SESSION['username'] = $username;
       header("Location:index.php");

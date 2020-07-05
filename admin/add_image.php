@@ -15,7 +15,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Add Image</li>
+              <li class="breadcrumb-item active">Add Add News &amp; Events</li>
             </ol>
           </div>
         </div>
@@ -25,77 +25,124 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <div class="row"> 
+        <div class="row">
           <!-- right column -->
-          <div class="col-md-12">            
+          <div class="col-md-12">
             <!-- general form elements disabled -->
             <div class="card card-warning">
-              <div class="card-header">                
+              <div class="card-header">
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-            <?php
-                if (isset($_POST['submit'])) {
-                    $gallery_date       = mysqli_real_escape_string($cont, $_POST['gallery_date']);
-                    $gallery_image      = $_FILES['image']['name'];
-                    $gallery_image_temp = $_FILES['image']['tmp_name'];
-                    
-                    $gallery_image2      = $_FILES['image2']['name'];
-                    $gallery_image_temp2 = $_FILES['image2']['tmp_name'];
-                    
-                    $gallery_image3      = $_FILES['image3']['name'];
-                    $gallery_image_temp3 = $_FILES['image3']['tmp_name'];
-                    
-                    $gallery_image4      = $_FILES['image4']['name'];
-                    $gallery_image_temp4 = $_FILES['image4']['tmp_name'];
-                    
-                    move_uploaded_file($gallery_image_temp, "../image/gallery/$gallery_image");
-                    move_uploaded_file($gallery_image_temp2, "../image/gallery2/$gallery_image2");
-                    move_uploaded_file($gallery_image_temp3, "../image/gallery3/$gallery_image3");
-                    move_uploaded_file($gallery_image_temp4, "../image/gallery4/$gallery_image4");
-                    
-                        if (empty($gallery_date)){
-                            echo '<div class="alert alert-danger" role="alert">
-                            <strong>Oh span!</strong> Date is empty.</div>';
-                        }else{
-                            $result = mysqli_query($cont, "INSERT INTO `gallery`(`gallery_image`,`gallery_image2`,`gallery_image3`,`gallery_image4`,`gallery_date`) VALUES ('$gallery_image','$gallery_image2','$gallery_image3','$gallery_image4','$gallery_date')");
-                            
-                            if($result) {
-                             echo "<div class='btn btn-primary btn-block'>Image Inserted Successfully</div><br>";
-                            }
+                <?php
+                // if(isset($_POST['submit']))
+                // {
+                //   $fileCount = count($_FILES['file']['name']);
+                //   for($i=0;$i<$fileCount;$i++)
+                //   {
+                //     $fileName = $_FILES['file']['name'][$i];
+                //     $sql =mysqli_query($cont,"INSERT INTO new_gallery (title,img) VALUES ('$fileName','$fileName')");
 
-                            if(!$result) {
-                              die('QUERY FAILDE' . mysqli_error($cont));
-                            }              
-                            
-                        }
-                  }
+                //     // if($cont->query($sql)===TRUE)
+                //     // {}
+                //     // move_uploaded_file($gallery_image_temp, "../image/gallery/$gallery_image");
+                //     move_uploaded_file($_FILES['file']['tmp_name'][$i],'../image/gallery/'.$fileName);
+                //   }
+                // }
+
                 ?>
-                <form action="" method="post" enctype="multipart/form-data">
-                   <div class="form-group">
-                        <label for="">Date</label>
-                        <input class="form-control" type="date" name="gallery_date" style="width: 170px;">
-                    </div>                 
-                    <div class="form-group">
-                        <label for="">Upload Image (max size : 1MB &amp; W:400px; H:200px)</label>
-                        <input type="file" name="image">
-                    </div>               
-                    <div class="form-group">
-                        <label for="">Upload Image (max size : 1MB &amp; W:400px; H:200px)</label>
-                        <input type="file" name="image2">
-                    </div>               
-                    <div class="form-group">
-                        <label for="">Upload Image (max size : 1MB &amp; W:400px; H:200px)</label>
-                        <input type="file" name="image3">
-                    </div>               
-                    <div class="form-group">
-                        <label for="">Upload Image (max size : 1MB &amp; W:400px; H:200px)</label>
-                        <input type="file" name="image4">
-                    </div>      
-                    <button class="btn btn-secondary" type="submit" name="submit">Submit</button>
-                    <button class="btn btn-secondary" type="reset">Reset</button>
-                </form>
-         
+              <!-- <form method="post" enctype="multipart/form-data">
+                <input type="file" name="file[]" id="file" multiple>
+                <input type="submit" name="submit" value="Submit">
+              </form> -->
+
+<?php
+  $errors = array();
+  $uploadedFiles = array();
+  $extension = array("jpeg","jpg","png","JPG","PNG");
+  $bytes = 1024;
+  $KB = 1024;
+  $totalBytes = $bytes * $KB;
+  $UploadFolder = "../image/gallery/";
+  $counter = 0;
+  if(isset($_FILES["files"]["tmp_name"])){
+    foreach( $_FILES["files"]["tmp_name"] as $key => $tmp_name){
+      $temp = $_FILES["files"]["tmp_name"][$key];
+      $name = $_FILES["files"]["name"][$key];
+
+      if(empty($temp))
+      {
+          break;
+      }
+
+      $counter++;
+      $UploadOk = true;
+
+      if($_FILES["files"]["size"][$key] > $totalBytes)
+      {
+          $UploadOk = false;
+          array_push($errors, $name." file size is larger than the 1 MB.");
+      }
+
+      $ext = pathinfo($name, PATHINFO_EXTENSION);
+      if(in_array($ext, $extension) == false){
+          $UploadOk = false;
+          array_push($errors, $name." is invalid file type.");
+      }
+
+      if(file_exists($UploadFolder."/".$name) == true){
+          $UploadOk = false;
+          array_push($errors, $name." file is already exist.");
+      }
+
+      if($UploadOk == true){
+        $sql =mysqli_query($cont,"INSERT INTO new_gallery (title,image,create_at) VALUES ('$name','$name',NOW())");
+
+
+          move_uploaded_file($temp,$UploadFolder."/".$name);
+          array_push($uploadedFiles, $name);
+      }
+    }
+  }
+
+  if($counter>0){
+      if(count($errors)>0)
+      {
+          echo "<b>Errors:</b>";
+          echo "<br/><ul class='list-group'>";
+          foreach($errors as $error)
+          {
+              echo "<li class='list-group-item list-group-item-danger'>".$error."</li>";
+          }
+          echo "</ul><br/>";
+      }
+
+      if(count($uploadedFiles)>0){
+          echo "<b>Uploaded Files:</b>";
+          echo "<br/><ul class='list-group'>";
+          foreach($uploadedFiles as $fileName)
+          {
+              echo "<li class='list-group-item list-group-item-success'>".$fileName."</li>";
+          }
+          echo "</ul><br/>";
+
+          echo count($uploadedFiles)." file(s) are successfully uploaded.";
+      }
+  }
+  else{
+      echo "Please, Select file(s) to upload.";
+  }
+?>
+
+
+<br>
+
+<form method="post" enctype="multipart/form-data" name="formUploadFile">
+    <label>Select One or More File to upload:</label><br>
+    <input type="file" name="files[]" multiple="multiple" /><br><br>
+    <input class="btn btn-info" type="submit" value="Upload Image" name="btnSubmit"/>
+</form>
+
 
               </div>
               <!-- /.card-body -->
@@ -119,9 +166,9 @@
 <!-- ./wrapper -->
 
 <?php
-  include 'includes/footer.php';      
+  include 'includes/footer.php';
 ?>
-  
+
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -156,6 +203,28 @@
     })
   })
 </script>
+
+<script type="text/javascript">
+      $(document).ready(function(){
+
+        var html = '<tr><td><input class="form-control" type="file" name="image[]" required=""></td><td><input class="btn btn-danger" type="button" id="remove" name="remove" value="Remove"></td></tr>';
+
+        var max = 10;
+        var x = 1;
+
+        $("#add").click(function(){
+          if(x <= max){
+            $("#table_field").append(html);
+            x++;
+          }
+        });
+        $("#table_field").on('click','#remove',function(){
+          $(this).closest('tr').remove();
+          x--;
+        });
+
+      });
+  </script>
 
 </body>
 </html>

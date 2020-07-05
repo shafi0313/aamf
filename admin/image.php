@@ -1,12 +1,12 @@
-<?php  
+<?php
     include 'includes/header.php';
     include '../includes/config.php';
     include 'delete_model.php';
 
-    
-    $result = mysqli_query($cont, "SELECT * FROM gallery order by gallery_id DESC");
+
+    $result = mysqli_query($cont, "SELECT * FROM new_gallery order by id DESC");
 ?>
-         
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -35,37 +35,24 @@
                 <table class="table table-light">
                     <thead>
                         <tr>
-                            <th>Id</th>                                
-                            <th>Image 1</th>
-                            <th>Image 2</th>
-                            <th>Image 3</th>
-                            <th>Image 4</th>
+                            <th>Id</th>
+                            <th>Image</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                        <?php
                             while($show = mysqli_fetch_array($result)){
-                                $gallery_id = $show['gallery_id'];
+                                $gallery_id = $show['id'];
                         ?>
-
                         <tr>
                             <td><?php echo $gallery_id; ?></td>
                             <td>
-                                <img class="article_img" src="../image/gallery/<?php echo $show['gallery_image']; ?>" alt="" height="80" width="80">
-                            </td>
-                            <td>
-                                <img class="article_img" src="../image/gallery2/<?php echo $show['gallery_image2']; ?>" alt="" height="80" width="80">
-                            </td>
-                            <td>
-                                <img class="article_img" src="../image/gallery3/<?php echo $show['gallery_image3']; ?>" alt="" height="80" width="80">
-                            </td>
-                            <td>
-                                <img class="article_img" src="../image/gallery4/<?php echo $show['gallery_image4']; ?>" alt="" height="80" width="80">
+                                <img class="article_img" src="../image/gallery/<?php echo $show['image']; ?>" alt="" height="80" width="80">
                             </td>
                             <td style="width: 95px;">
-                                <?php echo "<a rel='$gallery_id' href='javascript:void(0);' class='delete_link btn btn-danger'><i class='fa fa-trash'></i></a>"; ?>                                   
-                            </td> 
+                                <?php echo "<a rel='$gallery_id' href='javascript:void(0);' class='delete_link btn btn-danger'><i class='fa fa-trash'></i></a>"; ?>
+                            </td>
                         </tr>
                         <?php } ?>
                     </tbody>
@@ -81,18 +68,29 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
- 
+
 <?php
     include 'includes/footer.php';
 ?>
+
+
 <?php
-    if(isset($_GET['delete'])){                
-        $the_post_id = $_GET['delete'];                
-        $query = "DELETE FROM gallery WHERE gallery_id = {$the_post_id} ";
-        $delete_query = mysqli_query($cont, $query);       
-        header("Location: gallery.php");
-    }   
-?> 
+    if(isset($_GET['delete'])){
+        $the_post_id = $_GET['delete'];
+
+        $image = mysqli_query($cont, "SELECT * FROM new_gallery WHERE id = {$the_post_id}");
+        while($row = mysqli_fetch_array($image)){
+          $path = '../image/gallery/'. $row['image'];
+        }
+        if(file_exists($path)){
+          unlink($path);
+        }
+
+        $query = "DELETE FROM new_gallery WHERE id = {$the_post_id} ";
+        $delete_query = mysqli_query($cont, $query);
+        header("Location: image.php");
+    }
+?>
 
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
@@ -129,7 +127,7 @@
     $(document).ready(function(){
         $(".delete_link").on('click', function(){
             var id = $(this).attr("rel");
-            var delete_url = "gallery.php?delete="+ id +" ";
+            var delete_url = "image.php?delete="+ id +" ";
             $(".modal_delete_link").attr("href", delete_url);
             $("#exampleModalCenter").modal('show');
         });

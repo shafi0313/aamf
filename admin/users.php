@@ -49,10 +49,12 @@
           <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp" placeholder="Name">
+
           </div>
           <div class="form-group">
             <label for="username">User Name</label>
             <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp" placeholder="User Name">
+            <span id="checkUserName"></span>
           </div>
           <div class="form-group">
             <label for="email">Email</label>
@@ -133,15 +135,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
- 
-
-
-
-
-
-
-
  
 <?php
     include 'includes/footer.php';
@@ -190,7 +183,25 @@
     });
 </script>
 <script>
-  $('#user').on('submit', function (e) {
+  $(document).ready(function(){
+    $('#username').blur(function(){
+      var username = $(this).val();
+      $.ajax({
+        url:'ajax/user_core.php',
+        method: 'POST',
+        data:{username: username},
+        dataType: 'text',
+        success: function(html)
+        {
+          $('#checkUserName').html(html);
+        }
+      });
+    });
+  });
+</script>
+  
+<script>
+  $('#user').on('s', function (e) {
     e.preventDefault();
     form = $(this);
     let modal = $('#userModal');
@@ -213,14 +224,25 @@
         }
     });
   });
+//   function readData() {
+//     $.ajax({
+//         url: 'ajax/user_core.php',
+//         method: 'GET',
+//         success: function(e) {
+//             e = $.parseJSON(e);
+//             if (e.status === 'success') {
+//                 $('.table').html(e.data);
+//             } else {
+//                 $('.error').html(e.data);
+//             }
+//         },
+//     });
+// };
 
   function readData(){
-    // let client_id = "{{$client->id}}";
-    // let period_id = "{{$period->id}}";
     $.ajax({
         url:"ajax/user_core.php",
-        method: 'get',
-        
+        method: 'GET',
         success: function (data) {
             data = $.parseJSON(data);
             if (data.status == 'success') {
@@ -228,6 +250,30 @@
             }
         }
     });
+  };
+
+
+
+  function setSuccessMsg(form, message) {
+      let $alert = form.find('.status');
+      $alert.addClass('alert');
+      $alert.addClass('alert-success');
+      $alert.html(message);
+  }
+
+  function setErrorMsg(form, message) {
+      let $alert = form.find('.status');
+      $alert.addClass('alert');
+      $alert.addClass('alert-danger');
+      $alert.html(message);
+  }
+
+  function resetMsg() {
+      $('.status').removeClass('alert');
+      $('.status').removeClass('alert-success');
+      $('.status').removeClass('alert-danger');
+      $('.status').html('');
+
   }
 </script>
 

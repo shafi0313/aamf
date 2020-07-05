@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -25,7 +26,7 @@
       <div class="card">
         <div class="card-body register-card-body">
           <p class="login-box-msg">Register a new membership</p>
-          <form  method="post" action="registerCore.php">
+          <form  method="post" action="registerCore.php" name="re" onsubmit="return validate()">
             <div class="input-group mb-3">
               <input type="text" class="form-control" placeholder="Full name" name="name">
               <div class="input-group-append">
@@ -52,21 +53,22 @@
             </div>
             
             <div class="input-group mb-3">
-              <input type="password" class="form-control" placeholder="Password" name="password">
+              <input type="password" class="form-control" id="password" placeholder="Password" name="password">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-lock"></span>
                 </div>
               </div>
             </div>
-            <!-- <div class="input-group mb-3">
-              <input type="password" class="form-control" placeholder="Retype password">
+            <div class="input-group mb-3">
+              <input type="password" class="form-control" name="retypePassword" id="retypePassword" placeholder="Retype password">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-lock"></span>
                 </div>
               </div>
-            </div> -->
+            </div>
+            <div id="passCheck" class=" text-danger" ></div>
             <div class="row">
               <div class="col-8">
                 <!-- <div class="icheck-primary">
@@ -78,11 +80,12 @@
               </div>
               <!-- /.col -->
               <div class="col-4">
-                <button type="submit" name="submit" class="btn btn-primary btn-block">Register</button>
+                <button type="submit" name="submit" id="submit" class="btn btn-primary btn-block">Register</button>
               </div>
               <!-- /.col -->
             </div>
           </form>
+          
           <!-- <div class="social-auth-links text-center">
             <p>- OR -</p>
             <a href="#" class="btn btn-block btn-primary">
@@ -106,5 +109,39 @@
       <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
       <!-- AdminLTE App -->
       <script src="dist/js/adminlte.min.js"></script>
+      <script src="dist/js/sweetalert2.all.min.js"></script>
     </body>
   </html>
+  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+
+
+
+  <script>
+
+    $("#retypePassword").on('keyup',function(e){
+      var password = $("#password").val();
+      var retypePassword = $("#retypePassword").val();
+      if(retypePassword != password){
+        $("#passCheck").html('Password Not Mach');
+      }
+      if(retypePassword == password){
+        $("#passCheck").html('');
+      }
+    });
+  </script>
+  <script>
+    function validate(){
+      var password = $("#password").val();
+      var retypePassword = $("#retypePassword").val();
+      if(retypePassword != password){
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Password Not Mach',
+        });
+        return false;
+      }
+    }
+
+
+  </script>
