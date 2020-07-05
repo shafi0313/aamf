@@ -2,9 +2,6 @@
     include 'includes/header.php';
     include '../includes/config.php';
     include 'delete_model.php';
-
-
-    $result = mysqli_query($cont, "SELECT * FROM new_gallery order by id DESC");
 ?>
 
   <!-- Content Wrapper. Contains page content -->
@@ -42,8 +39,9 @@
                     </thead>
                     <tbody>
                        <?php
-                            while($show = mysqli_fetch_array($result)){
-                                $gallery_id = $show['id'];
+                          $result = mysqli_query($cont, "SELECT * FROM gallery order by id DESC");
+                          while($show = mysqli_fetch_array($result)){
+                              $gallery_id = $show['id'];
                         ?>
                         <tr>
                             <td><?php echo $gallery_id; ?></td>
@@ -78,7 +76,7 @@
     if(isset($_GET['delete'])){
         $the_post_id = $_GET['delete'];
 
-        $image = mysqli_query($cont, "SELECT * FROM new_gallery WHERE id = {$the_post_id}");
+        $image = mysqli_query($cont, "SELECT * FROM gallery WHERE id = {$the_post_id}");
         while($row = mysqli_fetch_array($image)){
           $path = '../image/gallery/'. $row['image'];
         }
@@ -86,7 +84,7 @@
           unlink($path);
         }
 
-        $query = "DELETE FROM new_gallery WHERE id = {$the_post_id} ";
+        $query = "DELETE FROM gallery WHERE id = {$the_post_id} ";
         $delete_query = mysqli_query($cont, $query);
         header("Location: image.php");
     }

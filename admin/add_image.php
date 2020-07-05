@@ -96,7 +96,7 @@
       }
 
       if($UploadOk == true){
-        $sql =mysqli_query($cont,"INSERT INTO new_gallery (title,image,create_at) VALUES ('$name','$name',NOW())");
+        $sql =mysqli_query($cont,"INSERT INTO gallery (title,image,create_at) VALUES ('$name','$name',NOW())");
 
 
           move_uploaded_file($temp,$UploadFolder."/".$name);
