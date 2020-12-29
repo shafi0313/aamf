@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 17, 2019 at 07:57 AM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 7.2.1
+-- Host: localhost:3306
+-- Generation Time: Dec 29, 2020 at 07:15 AM
+-- Server version: 5.7.24
+-- PHP Version: 7.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `amzad`
+-- Database: `php_aamf`
 --
 
 -- --------------------------------------------------------
@@ -29,29 +28,18 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `gallery` (
-  `gallery_id` int(255) NOT NULL,
-  `gallery_image` varchar(255) NOT NULL,
-  `gallery_image2` varchar(255) NOT NULL,
-  `gallery_image3` varchar(255) NOT NULL,
-  `gallery_image4` varchar(255) NOT NULL,
-  `gallery_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` int(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `create_at` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `gallery`
 --
 
-INSERT INTO `gallery` (`gallery_id`, `gallery_image`, `gallery_image2`, `gallery_image3`, `gallery_image4`, `gallery_date`) VALUES
-(9, '1 (5).jpg', '1 (6).jpg', '1 (7).jpg', '1 (8).jpg', '0000-00-00'),
-(10, '1 (9).jpg', '1 (10).jpg', '1 (11).jpg', '1 (12).jpg', '0000-00-00'),
-(11, '1 (13).jpg', '1 (14).jpg', '1 (15).jpg', '1 (16).jpg', '0000-00-00'),
-(12, '1 (17).jpg', '1 (18).jpg', '1 (19).jpg', '1 (20).jpg', '0000-00-00'),
-(13, '1 (21).jpg', '1 (22).jpg', '1 (23).jpg', '1 (24).jpg', '0000-00-00'),
-(14, '1 (25).jpg', '1 (26).jpg', '1 (27).jpg', '1 (28).jpg', '0000-00-00'),
-(15, '1 (29).jpg', '1 (30).jpg', '1 (31).jpg', '1 (32).jpg', '0000-00-00'),
-(19, '20190705_183207.jpg', '20190705_103536.jpg', '20190705_115339.jpg', '20190705_115356.jpg', '2019-07-24'),
-(20, '20190705_115410.jpg', '20190705_115423.jpg', '20190705_115444.jpg', '20190705_115505.jpg', '2019-07-24'),
-(21, '20190705_120849.jpg', '20190705_115651.jpg', '20190705_115507.jpg', '20190705_120845.jpg', '2019-07-24');
+INSERT INTO `gallery` (`id`, `title`, `image`, `create_at`) VALUES
+(82, '1 (1).jpg', '1 (1).jpg', '2020-07-05');
 
 -- --------------------------------------------------------
 
@@ -62,7 +50,7 @@ INSERT INTO `gallery` (`gallery_id`, `gallery_image`, `gallery_image2`, `gallery
 CREATE TABLE `post_article` (
   `article_id` int(255) NOT NULL,
   `article_title` varchar(100) NOT NULL,
-  `article_text` text NOT NULL,
+  `article_text` longtext NOT NULL,
   `article_image` varchar(255) NOT NULL,
   `article_author` varchar(100) NOT NULL,
   `article_date` varchar(10) NOT NULL
@@ -133,16 +121,20 @@ CREATE TABLE `users` (
   `name` varchar(100) NOT NULL,
   `username` varchar(10) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `password` varchar(12) NOT NULL
+  `role` int(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `auth` varchar(255) NOT NULL,
+  `createDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `name`, `username`, `email`, `password`) VALUES
-(6, '', 'shafi', '', '123456'),
-(9, '', 'shafi1', '', '123456');
+INSERT INTO `users` (`user_id`, `name`, `username`, `email`, `role`, `password`, `auth`, `createDate`) VALUES
+(1, 'Md. Shafiul Hasan', 'shafi', 'msh.shafiul@gmail.com', 1, 'd93a5def7511da3d0f2d171d9c344e91', '2d9790c3753c09b685c7799c12fc2791', '2020-07-01'),
+(2, '', '', '', 1, '0144712dd81be0c3d9724f5e56ce6685', '0144712dd81be0c3d9724f5e56ce6685', '2020-07-28'),
+(3, 'asd', 'sdf', 'sd@asdf', 1, '722547a0770fbaa953f29e161c2747fe', 'f1f18e7d7491a6470fee09d5e0f18dfa', '2020-07-28');
 
 --
 -- Indexes for dumped tables
@@ -152,7 +144,7 @@ INSERT INTO `users` (`user_id`, `name`, `username`, `email`, `password`) VALUES
 -- Indexes for table `gallery`
 --
 ALTER TABLE `gallery`
-  ADD PRIMARY KEY (`gallery_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `post_article`
@@ -187,7 +179,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `gallery`
 --
 ALTER TABLE `gallery`
-  MODIFY `gallery_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `post_article`
@@ -211,7 +203,7 @@ ALTER TABLE `post_news_event`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
