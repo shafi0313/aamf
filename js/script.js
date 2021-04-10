@@ -11,6 +11,7 @@ function scrollFunction() {
     document.getElementById("logo5").style.display = "none";
     document.getElementById("logo6").style.display = "none";
     document.getElementById("logo7").style.display = "none";
+    document.getElementById("logo8").style.display = "none";
   } else {
     document.getElementById("nav").style.padding = "0px 0px";
     document.getElementById("nav_img").style.width = "100px";
@@ -21,6 +22,7 @@ function scrollFunction() {
     document.getElementById("logo5").style.display = "block";
     document.getElementById("logo6").style.display = "block";
     document.getElementById("logo7").style.display = "block";
+    document.getElementById("logo8").style.display = "block";
   }
 };
 
@@ -50,7 +52,7 @@ function stickyHeader () {
             $('.scrollup').fadeOut();
         }
     });
-    
+
     //Click event to scroll to top
     $('.scrollup').on("click",function(){
         $('html, body').animate({scrollTop : 0},800);
