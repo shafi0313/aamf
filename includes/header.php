@@ -85,7 +85,7 @@
                         <a class="nav-link" id="nav_link" href="healthcare.php"><p id="logo6" class="menu_icon"><i class="far fa-newspaper"></i></p>স্বাস্থ্যকথা</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="nav_link" href="#"><p id="logo7" class="menu_icon"><i class="fas fa-graduation-cap"></i></p>Fulpur Public School</a>
+                        <a class="nav-link" id="nav_link" href="#"><p id="logo7" class="menu_icon"><i class="fas fa-graduation-cap"></i></p>Phulpur Public School</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="nav_link" href="contact_us.php"><p id="logo8" class="menu_icon"><i class="fas fa-address-book"></i></p>Contact Us</a>
