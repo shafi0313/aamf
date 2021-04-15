@@ -60,8 +60,8 @@
                     <h3>DONATE US</h3>
                     <ul>
                         <li>AMZAD ALI MEMORIAL FOUNDATION</li>
+                        <li>City Bank Mymensingh Branch, Mymensingh</li>
                         <li>A/C: 1401261867001</li>
-                        <li>City Bank</li>
                     </ul>
                 </div>
             </div>
