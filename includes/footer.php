@@ -60,8 +60,11 @@
                     <h3>DONATE US</h3>
                     <ul>
                         <li>AMZAD ALI MEMORIAL FOUNDATION</li>
-                        <li>City Bank Mymensingh Branch, Mymensingh</li>
+                        <li>The City Bank Limited</li>
+                        <li>Branch: City Bank Mymensingh Branch, Mymensingh</li>
                         <li>A/C: 1401261867001</li>
+                        <li>SWIFT Code: CIBLBDDH</li>
+                        <li>Routing Number: 225611753</li>
                     </ul>
                 </div>
             </div>
